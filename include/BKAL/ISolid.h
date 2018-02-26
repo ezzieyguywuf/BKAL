@@ -1,8 +1,8 @@
 #ifndef ISolid_HEADER
 #define ISolid_HEADER
 
-#include <Topology/IFace.h>
-#include <Managers/Types.h>
+#include <BKAL/IFace.h>
+#include <BKAL/Types.h>
 
 #include <vector>
 #include <memory>
@@ -21,8 +21,8 @@ class ISolid
         inline const vector<unique_ptr<IEdge>>& getEdges() const;
         // TODO: will this method get confused with ISolidManager::getIndex? should this
         // return an unsigned int instead so that the user has to manually create the
-        // Manager::FaceIndex and in so doing hopefully prevent disaster?
-        inline const Manager::FaceIndex getIndex(const IFace& anIFace) const;
+        // GTAL::FaceIndex and in so doing hopefully prevent disaster?
+        inline const GTAL::FaceIndex getIndex(const IFace& anIFace) const;
 
     private:
         virtual const vector<unique_ptr<IFace>>& getFaceVector() const = 0;
@@ -49,14 +49,14 @@ const vector<unique_ptr<IEdge>>& ISolid::getEdges() const
     return this->getEdgeVector();
 }
 
-const Manager::FaceIndex ISolid::getIndex(const IFace& anIFace) const
+const GTAL::FaceIndex ISolid::getIndex(const IFace& anIFace) const
 {
     unsigned int i = 0;
     for (const auto& checkFace : this->getFaces())
     {
         if (*checkFace == anIFace)
         {
-            return Manager::FaceIndex(i);
+            return GTAL::FaceIndex(i);
         }
         i += 1;
     }
