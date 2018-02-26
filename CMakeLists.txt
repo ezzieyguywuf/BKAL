@@ -7,18 +7,9 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 project(BKAL)
 
-#set(OCC_INCLUDE "/home/wolfie/Program/FreeCAD_dev/opencascade-7.1.0/inc")
-#set(OCC_LIBRARIES "/home/wolfie/Program/FreeCAD_dev/opencascade-7.1.0/build/lin64/gcc/libd")
-#set(FreeCAD_BASE "/home/wolfie/Program/FreeCAD_dev/FreeCAD_ezziey")
-
 include_directories(
     "include"
-    #${OCC_INCLUDE}
 )
-
-#link_directories(
-    #${OCC_LIBRARIES}
-#)
 
 set(CTEST_ENVIRONMENT CTEST_OUTPUT_ON_FAILURE=1)
 enable_testing()

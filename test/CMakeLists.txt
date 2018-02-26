@@ -1,9 +1,9 @@
 ADD_DEFINITIONS("-DBOOST_TEST_DYN_LINK")
 
 add_subdirectory(googletest)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} include)
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-set(LIBS "gtest_main" "FakeEdge")
+set(LIBS "gtest_main" "FakeEdge" "FakeFace")
 function(AddTest SrcName)
     add_executable(${SrcName} "${SrcName}.cpp")
     target_link_libraries(${SrcName} ${LIBS})
@@ -11,3 +11,4 @@ function(AddTest SrcName)
 endfunction(AddTest)
 
 AddTest(FakeEdgeTester)
+AddTest(FakeFaceTester)

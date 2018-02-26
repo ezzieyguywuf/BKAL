@@ -21,8 +21,8 @@ class ISolid
         inline const vector<unique_ptr<IEdge>>& getEdges() const;
         // TODO: will this method get confused with ISolidManager::getIndex? should this
         // return an unsigned int instead so that the user has to manually create the
-        // GTAL::FaceIndex and in so doing hopefully prevent disaster?
-        inline const GTAL::FaceIndex getIndex(const IFace& anIFace) const;
+        // BKAL::FaceIndex and in so doing hopefully prevent disaster?
+        inline const BKAL::FaceIndex getIndex(const IFace& anIFace) const;
 
     private:
         virtual const vector<unique_ptr<IFace>>& getFaceVector() const = 0;
@@ -49,14 +49,14 @@ const vector<unique_ptr<IEdge>>& ISolid::getEdges() const
     return this->getEdgeVector();
 }
 
-const GTAL::FaceIndex ISolid::getIndex(const IFace& anIFace) const
+const BKAL::FaceIndex ISolid::getIndex(const IFace& anIFace) const
 {
     unsigned int i = 0;
     for (const auto& checkFace : this->getFaces())
     {
         if (*checkFace == anIFace)
         {
-            return GTAL::FaceIndex(i);
+            return BKAL::FaceIndex(i);
         }
         i += 1;
     }
