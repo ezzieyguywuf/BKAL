@@ -1,7 +1,11 @@
-GTAL is a Geometric Topology Abstraction Layer. Its intent is to provide an abstraction
-layer between a given Geometric Topology engine (i.e. OpenCascade's TopoDS package) and
-the client using this engine. GTAL does *not* provide any abstraction for actual Geometric
-functions, i.e. creating solids, filleting objects, boolean operations etc. GTAL is
-strictly interested in providing access to Topological information, which while dependant
-upon the underlying geometry, should not strictly need access to this geometry for must
-tasks.
+BKAL is a BREP Kernal Abstraction Layer. It's purpose is to provide a simple, intuitive
+means of communicating with a BREP Kernel. BKAL should effectively allow you to de-couple
+your code base from a given BREP kernel, thus making unit-testing easier as well as
+providing a single point of entry of large third-party libraries.
+
+At the time of this writing, the most prominent, easily available open-source BREP Kernel
+is he OpenCascade Library (OCC for short). As such, BKAL is written with OCC in mind.
+
+Please note that BKAL does nothing on its own. Indeed, many of the classes defined herein
+are "Pure Virtual", i.e. they can not be instantiated. Rather, a library must be written
+which implements he BKAL interfaces.
