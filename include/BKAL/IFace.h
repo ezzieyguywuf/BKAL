@@ -3,23 +3,24 @@
 
 #include <BKAL/IEdge.h>
 #include <BKAL/Types.h>
-#include <vector>
 #include <memory>
 
-using std::unique_ptr;
-using std::vector;
+using BKAL::pIEdge;
+using BKAL::pIEdges;
 
 class IFace{
     public:
         inline ~IFace(){};
         inline bool operator==(const IFace& aFace) const;
         inline bool operator!=(const IFace& aFace) const;
+        inline bool sharesEdge(const IFace& aFace) const;
+        // Returns the IEdge pointed to by index
         inline const IEdge& getEdge(const BKAL::EdgeIndex index) const;
-        inline const vector<unique_ptr<IEdge>>& getEdges() const;
+        inline const pIEdges& getEdges() const;
 
     protected:
         virtual bool checkEquals_(const IFace& aFace) const = 0;
-        virtual const vector<unique_ptr<IEdge>>& getEdgeVector() const = 0 ;
+        virtual const pIEdges& getEdgeVector() const = 0 ;
 };
 
 template <class T>
@@ -47,12 +48,25 @@ bool IFace::operator!=(const IFace& aFace) const
     return !(this->checkEquals_(aFace));
 }
 
+bool IFace::sharesEdge(const IFace& aFace) const
+{
+    for (const auto& myEdge : this->getEdges()){
+        for (const auto& checkEdge : aFace.getEdges()){
+            if (*myEdge == *checkEdge){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 const IEdge& IFace::getEdge(const BKAL::EdgeIndex index) const
 {
     return *(this->getEdgeVector()[index.get()]);
 }
 
-const vector<unique_ptr<IEdge>>& IFace::getEdges() const{
+const pIEdges& IFace::getEdges() const{
     return this->getEdgeVector();
 }
 
