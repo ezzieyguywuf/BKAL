@@ -14,8 +14,6 @@ class IFace{
         inline bool operator==(const IFace& aFace) const;
         inline bool operator!=(const IFace& aFace) const;
         inline bool sharesEdge(const IFace& aFace) const;
-        // Returns the IEdge pointed to by index
-        inline const IEdge& getEdge(const BKAL::EdgeIndex index) const;
         inline const pIEdges& getEdges() const;
 
     protected:
@@ -60,11 +58,6 @@ bool IFace::sharesEdge(const IFace& aFace) const
     return false;
 }
 
-
-const IEdge& IFace::getEdge(const BKAL::EdgeIndex index) const
-{
-    return *(this->getEdgeVector()[index.get()]);
-}
 
 const pIEdges& IFace::getEdges() const{
     return this->getEdgeVector();
