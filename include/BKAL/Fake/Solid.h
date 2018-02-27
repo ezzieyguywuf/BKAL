@@ -4,35 +4,38 @@
 #include <BKAL/ISolid.h>
 #include <BKAL/IFace.h>
 #include <BKAL/Fake/Face.h>
+#include <BKAL/Types.h>
 
 #include <vector>
-#include <memory>
 
 using std::vector;
-using std::unique_ptr;
+using BKAL::pIFace;
+using BKAL::pIFaces;
+using BKAL::pIEdge;
+using BKAL::pIEdges;
 
 namespace Fake{
     class Solid : public ISolid
     {
         public:
-            Solid(vector<Face> faces);
+            Solid(pIFaces faces);
             Solid(const Solid& aSolid);
             Solid(Solid&& aSolid);
             Solid operator=(const Solid& aSolid);
             Solid operator=(Solid&& aSolid);
             ~Solid(){};
 
-            const vector<unique_ptr<IFace>>& getFaceVector() const override;
-            const vector<unique_ptr<IEdge>>& getEdgeVector() const override;
+            const pIFaces& getFaceVector() const override;
+            const pIEdges& getEdgeVector() const override;
 
-            const unique_ptr<IFace>& getFace(int which) const;
+            const pIFace& getFace(int which) const;
 
         private:
-            bool checkEdge(const unique_ptr<IEdge>& anEdge) const;
-            void addEdges(const vector<unique_ptr<IEdge>>& edges);
-            void addFace(const Mock::Face& aFace);
-            vector<unique_ptr<IFace>> myFaces;
-            vector<unique_ptr<IEdge>> myEdges;
+            bool checkEdge(const pIEdge& anEdge) const;
+            void addEdges(const pIEdges& edges);
+            void addFace(const Face& aFace);
+            pIFaces myFaces;
+            pIEdges myEdges;
             vector<unsigned int> myEdgeVals;
     };
 }

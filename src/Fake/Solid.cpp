@@ -1,17 +1,14 @@
 #include <BKAL/Fake/Solid.h>
-#include <Topology/IFace.h>
 #include <algorithm>
 
 using Fake::Solid;
 using Fake::Edge;
-using std::vector;
-using std::unique_ptr;
 
-Solid::Solid(vector<Face> faces)
+Solid::Solid(pIFaces faces)
+    : myFaces(std::move(faces))
 {
-    for (auto face : faces)
-    {
-        this->addFace(face);
+    for(const auto& aFace : myFaces){
+        this->addEdges(aFace->getEdges());
     }
 }
 
@@ -55,17 +52,17 @@ Solid Solid::operator=(Solid&& aSolid)
     return *this;
 }
 
-const vector<unique_ptr<IFace>>& Solid::getFaceVector() const
+const pIFaces& Solid::getFaceVector() const
 {
     return myFaces;
 }
 
-const vector<unique_ptr<IEdge>>& Solid::getEdgeVector() const
+const pIEdges& Solid::getEdgeVector() const
 {
     return myEdges;
 }
 
-const unique_ptr<IFace>& Solid::getFace(int which) const{
+const pIFace& Solid::getFace(int which) const{
     return myFaces[which];
 }
 
@@ -73,7 +70,7 @@ const unique_ptr<IFace>& Solid::getFace(int which) const{
 //                private methods
 // -------------------------------------------------------------
 
-bool Solid::checkEdge(const unique_ptr<IEdge>& anEdge) const
+bool Solid::checkEdge(const pIEdge& anEdge) const
 {
     const Fake::Edge* tmpEdge = static_cast<const Fake::Edge*>(anEdge.get());
     int val = tmpEdge->getVal(), val2;
@@ -91,14 +88,14 @@ bool Solid::checkEdge(const unique_ptr<IEdge>& anEdge) const
     return false;
 }
 
-void Solid::addEdges(const vector<unique_ptr<IEdge>>& edges)
+void Solid::addEdges(const pIEdges& edges)
 {
     for (const auto& edge : edges)
     {
         if (! this->checkEdge(edge))
         {
             Fake::Edge* tmpEdge = static_cast<Fake::Edge*>(edge.get());
-            myEdges.push_back(std::move(unique_ptr<IEdge>(new Fake::Edge(tmpEdge->getVal()))));
+            myEdges.push_back(std::move(pIEdge(new Fake::Edge(tmpEdge->getVal()))));
             myEdgeVals.push_back(tmpEdge->getVal());
         }
     }
@@ -106,6 +103,6 @@ void Solid::addEdges(const vector<unique_ptr<IEdge>>& edges)
 
 void Solid::addFace(const Face& aFace)
 {
-    myFaces.push_back(std::move(unique_ptr<IFace>(new Fake::Face(aFace))));
+    myFaces.push_back(std::move(pIFace(new Fake::Face(aFace))));
     this->addEdges(aFace.getEdges());
 }
