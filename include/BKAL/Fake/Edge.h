@@ -2,6 +2,7 @@
 #define FakeEdge_HEADER
 
 #include <BKAL/IEdge.h>
+#include <BKAL/Types.h>
 
 namespace Fake{
     // An implementation of the IEdge interface. Notice that we inherit from IEdge_
@@ -11,7 +12,7 @@ namespace Fake{
     class Edge : public IEdge_<Edge>
     {
         public:
-            Edge(int val);
+            Edge(uint val);
             Edge(const Edge& anEdge);
             Edge(Edge&& anEdge);
             Edge operator=(const Edge& anEdge);
@@ -23,7 +24,7 @@ namespace Fake{
 
             int getVal() const;
         private:
-            int val;
+            uint val;
     };
 };
 

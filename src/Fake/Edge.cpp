@@ -2,7 +2,7 @@
 
 using Fake::Edge;
 
-Edge::Edge(int value)
+Edge::Edge(uint value)
     : val(value)
 {}
 

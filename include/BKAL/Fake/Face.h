@@ -17,7 +17,8 @@ namespace Fake{
     class Face : public IFace_<Face>
     {
         public:
-            Face(pIEdges edges);
+            Face(const pIEdges& edges);
+            Face(const vector<uint>& edgeVals);
             Face (const Face& aFace);
             Face (Face&& aFace);
             Face operator=(const Face& aFace);

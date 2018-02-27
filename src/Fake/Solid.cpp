@@ -3,12 +3,13 @@
 
 using Fake::Solid;
 using Fake::Edge;
+using Fake::Face;
 
-Solid::Solid(pIFaces faces)
-    : myFaces(std::move(faces))
+Solid::Solid(vector<Face> faces)
 {
-    for(const auto& aFace : myFaces){
-        this->addEdges(aFace->getEdges());
+    for(const auto& aFace : faces){
+        myFaces.push_back(std::move(pIFace(new Face(aFace))));
+        this->addEdges(myFaces.back()->getEdges());
     }
 }
 

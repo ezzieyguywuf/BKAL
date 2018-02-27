@@ -4,9 +4,21 @@
 using Fake::Face;
 using std::vector;
 
-Face::Face (pIEdges edges)
-    : myEdges(std::move(edges))
+Face::Face (const pIEdges& edges)
 {
+    for (const auto& anEdge : edges)
+    {
+        const Fake::Edge* tmpEdge = static_cast<const Fake::Edge*>(anEdge.get());
+        myEdges.push_back(std::move(pIEdge(new Fake::Edge(*tmpEdge))));
+    }
+}
+
+Face::Face(const vector<uint>& edgeVals)
+{
+    for (const uint& i : edgeVals)
+    {
+        myEdges.push_back(std::move(pIEdge(new Fake::Edge(i))));
+    }
 }
 
 Face::Face (const Face& aFace)

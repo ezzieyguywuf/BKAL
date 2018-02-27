@@ -18,7 +18,7 @@ namespace Fake{
     class Solid : public ISolid
     {
         public:
-            Solid(pIFaces faces);
+            Solid(vector<Face> faces);
             Solid(const Solid& aSolid);
             Solid(Solid&& aSolid);
             Solid operator=(const Solid& aSolid);
@@ -34,9 +34,11 @@ namespace Fake{
             bool checkEdge(const pIEdge& anEdge) const;
             void addEdges(const pIEdges& edges);
             void addFace(const Face& aFace);
-            pIFaces myFaces;
             pIEdges myEdges;
             vector<unsigned int> myEdgeVals;
+
+        protected:
+            pIFaces myFaces;
     };
 }
 

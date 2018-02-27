@@ -1,5 +1,5 @@
-#include <BKAL/Fake/FakeObjectMaker.h>
-#include <BKAL/Fake/Edge.h>
+#include <MockObjectMaker.h>
+#include <Mock_Edge.h>
 
 #include <stdexcept>
 #include <iostream>
@@ -7,11 +7,11 @@
 #include <utility>
 #include <sstream>
 
-const unsigned int FakeObjectMaker::EDGE=0;
-const unsigned int FakeObjectMaker::FACE=1;
-unsigned int FakeObjectMaker::EDGE_COUNT;
-unsigned int FakeObjectMaker::FACE_COUNT;
-const std::map<std::string, int> FakeObjectMaker::BoxFaces = {
+const unsigned int MockObjectMaker::EDGE=0;
+const unsigned int MockObjectMaker::FACE=1;
+unsigned int MockObjectMaker::EDGE_COUNT;
+unsigned int MockObjectMaker::FACE_COUNT;
+const std::map<std::string, int> MockObjectMaker::BoxFaces = {
     {"front", 0},
     {"back", 1},
     {"top", 2},
@@ -19,12 +19,12 @@ const std::map<std::string, int> FakeObjectMaker::BoxFaces = {
     {"left", 4},
     {"right", 5}
 }; 
-const std::map<std::string, int> FakeObjectMaker::CylFaces = {
+const std::map<std::string, int> MockObjectMaker::CylFaces = {
     {"top", 0},
     {"lateral", 1},
     {"bot", 2}
 };
-const std::map<std::string, int> FakeObjectMaker::FusTallFaces = {
+const std::map<std::string, int> MockObjectMaker::FusTallFaces = {
     {"front", 0},
     {"back", 1},
     {"top", 2},
@@ -35,62 +35,62 @@ const std::map<std::string, int> FakeObjectMaker::FusTallFaces = {
     {"cylinder_top", 7},
 };
 
-FakeObjectMaker::FakeObjectMaker()
+MockObjectMaker::MockObjectMaker()
 {
 }
 
-std::unique_ptr<IEdge> FakeObjectMaker::makeEdge(){
+std::unique_ptr<IEdge> MockObjectMaker::makeEdge(){
     int name = this->getValue(EDGE);
-    return std::unique_ptr<IEdge>(new Fake::Edge(name));
+    return std::unique_ptr<IEdge>(new Mock::Edge(name));
 }
 
-std::unique_ptr<IFace> FakeObjectMaker::makeFace(){
-    return this->makeFace(this->makeFakeEdges());
+std::unique_ptr<IFace> MockObjectMaker::makeFace(){
+    return this->makeFace(this->makeMockEdges());
 }
 
-//Face FakeObjectMaker::makeFace(Edge anEdge){
+//Face MockObjectMaker::makeFace(Edge anEdge){
     //Face aFace = this->makeFace();
     //aFace.myEdges[0] = anEdge;
     //return aFace;
 //}
 
-//Face FakeObjectMaker::makeFace(Edge anEdge, int which){
+//Face MockObjectMaker::makeFace(Edge anEdge, int which){
     //Face aFace = this->makeFace();
     //aFace.myEdges[which] = anEdge;
     //return aFace;
 //}
 
-std::unique_ptr<IFace> FakeObjectMaker::makeFace(std::vector<Fake::Edge> Edges){
+std::unique_ptr<IFace> MockObjectMaker::makeFace(std::vector<Mock::Edge> Edges){
     int name  = this->getValue(FACE);
-    Fake::Face* aFace = new Fake::Face(name, Edges);
+    Mock::Face* aFace = new Mock::Face(name, Edges);
     return std::unique_ptr<IFace>(aFace);
 }
 
-std::unique_ptr<ISolid> FakeObjectMaker::makeBox()
+std::unique_ptr<ISolid> MockObjectMaker::makeBox()
 {
-    return std::unique_ptr<ISolid>(new Fake::Solid(this->buildBoxFaces()));
+    return std::unique_ptr<ISolid>(new Mock::Solid(this->buildBoxFaces()));
 }
 
-std::unique_ptr<ISolid> FakeObjectMaker::makeCylinder(){
-    Fake::Face topFace = this->makeFakeFace(1);
-    Fake::Face latFace = this->makeFakeFace(3);
-    Fake::Face botFace = this->makeFakeFace(1);
+std::unique_ptr<ISolid> MockObjectMaker::makeCylinder(){
+    Mock::Face topFace = this->makeMockFace(1);
+    Mock::Face latFace = this->makeMockFace(3);
+    Mock::Face botFace = this->makeMockFace(1);
 
     latFace.changeEdge(0, topFace.getEdge(0));
     latFace.changeEdge(1, botFace.getEdge(0));
 
-    std::vector<Fake::Face> Faces;
+    std::vector<Mock::Face> Faces;
     Faces.push_back(topFace);
     Faces.push_back(latFace);
     Faces.push_back(botFace);
-    return std::unique_ptr<ISolid>(new Fake::Solid(Faces));
+    return std::unique_ptr<ISolid>(new Mock::Solid(Faces));
 }
 
 tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>> 
-    FakeObjectMaker::increaseBoxHeight()
+    MockObjectMaker::increaseBoxHeight(const ISolid& origBox)
 {
     unsigned int frt, bck, top, bot, lft, rgt;
-    std::vector<Fake::Face> Faces = this->buildBoxFaces();
+    std::vector<Mock::Face> Faces = this->buildBoxFaces();
 
     frt = BoxFaces.at("front");
     bck = BoxFaces.at("back");
@@ -101,7 +101,7 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
 
     // Swap some faces around to challenge the topological namer. This simulates what
     // (usually) happens in opencascade
-    Fake::Face temp = Faces[frt];
+    Mock::Face temp = Faces[frt];
     Faces[frt] = Faces[bck];
     Faces[bck] = temp;
     temp = Faces[lft];
@@ -117,14 +117,14 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
         {FaceIndex(bot), FaceIndex(bot)}
     };
     return std::tuple<std::unique_ptr<ISolid>, std::vector<std::pair<FaceIndex, FaceIndex>>>
-        (std::unique_ptr<ISolid>(new Fake::Solid(Faces)), modifiedFaces);
+        (std::unique_ptr<ISolid>(new Mock::Solid(Faces)), modifiedFaces);
 }
 
 tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
-    FakeObjectMaker::fuseTallerCylinder()
+    MockObjectMaker::fuseTallerCylinder()
 {
     unsigned int frt, bck, top, bot, lft, rgt, lat, ctp;
-    std::vector<Fake::Face> Faces;
+    std::vector<Mock::Face> Faces;
 
     frt = FusTallFaces.at("front");
     bck = FusTallFaces.at("back");
@@ -153,7 +153,7 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
             // The circular top of the cylinder only has a single edge.
             numFaces = 1;
         }
-        Faces.push_back(this->makeFakeFace(numFaces));
+        Faces.push_back(this->makeMockFace(numFaces));
     }
 
     Faces[top].changeEdge(0, Faces[frt].getEdge(0));
@@ -189,16 +189,16 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
         {FaceIndex(), FaceIndex(ctp)}
     };
     return std::tuple<std::unique_ptr<ISolid>, std::vector<std::pair<FaceIndex, FaceIndex>>>
-        (std::unique_ptr<ISolid>(new Fake::Solid(Faces)), modifiedFaces);
+        (std::unique_ptr<ISolid>(new Mock::Solid(Faces)), modifiedFaces);
 }
 
-//std::unique_ptr<ISolid> FakeObjectMaker::filletBox(
+//std::unique_ptr<ISolid> MockObjectMaker::filletBox(
         //const std::unique_ptr<ISolid>& aBox,
         //const std::unique_ptr<IEdge>& anEdge)
 //{
 //}
 
-//FakePartFillet FakeObjectMaker::FilletedBox(){
+//FakePartFillet MockObjectMaker::FilletedBox(){
     //unsigned int frt, top, lft, rgt;
 
     //// Start with a box
@@ -238,7 +238,7 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
     //return fillet;
 //}
 
-//FakePartFeature FakeObjectMaker::Cylinder(){
+//FakePartFeature MockObjectMaker::Cylinder(){
     //std::vector<FakeOCCEdge> Edges, EdgesTop, EdgesBot;
     //for (int i=1; i<=3; i++){
         //FakeOCCEdge anEdge = this->makeEdge();
@@ -262,16 +262,16 @@ tuple<unique_ptr<ISolid>, vector<pair<FaceIndex, FaceIndex>>>
     //Faces.push_back(top_face);
     //Faces.push_back(lat_face);
 
-    //FakePartFeature Fake_feature = FakePartFeature();
-    //Fake_feature.Shape.Faces = Faces;
-    //return Fake_feature;
+    //FakePartFeature mock_feature = FakePartFeature();
+    //mock_feature.Shape.Faces = Faces;
+    //return mock_feature;
 //}
 
 //---------------------------------------------------------------------------
 //          private methods
 //---------------------------------------------------------------------------
 
-int FakeObjectMaker::getValue(unsigned int which) const{
+int MockObjectMaker::getValue(unsigned int which) const{
     switch (which) {
         case EDGE:
             EDGE_COUNT++;
@@ -284,32 +284,32 @@ int FakeObjectMaker::getValue(unsigned int which) const{
     }
 }
 
-Fake::Face FakeObjectMaker::makeFakeFace(unsigned int num_edges){
+Mock::Face MockObjectMaker::makeMockFace(unsigned int num_edges){
     int name = this->getValue(FACE);
-    Fake::Face outFace(name, this->makeFakeEdges(num_edges));
+    Mock::Face outFace(name, this->makeMockEdges(num_edges));
     return outFace;
 }
 
-Fake::Edge FakeObjectMaker::makeFakeEdge(){
+Mock::Edge MockObjectMaker::makeMockEdge(){
     int name = this->getValue(EDGE);
-    return Fake::Edge(name);
+    return Mock::Edge(name);
 }
 
-std::vector<Fake::Edge> FakeObjectMaker::makeFakeEdges(unsigned int count){
-    std::vector<Fake::Edge> outEdges;
+std::vector<Mock::Edge> MockObjectMaker::makeMockEdges(unsigned int count){
+    std::vector<Mock::Edge> outEdges;
     for (int i=0; i<count ; i++)
     {
         int name = this->getValue(EDGE);
-        outEdges.push_back(Fake::Edge(name));
+        outEdges.push_back(Mock::Edge(name));
     }
     return outEdges;
 }
 
 // ------------------- Private Methods ------------------------
-std::vector<Fake::Face> FakeObjectMaker::buildBoxFaces()
+std::vector<Mock::Face> MockObjectMaker::buildBoxFaces()
 {
     unsigned int frt, bck, top, bot, lft, rgt;
-    std::vector<Fake::Face> Faces;
+    std::vector<Mock::Face> Faces;
 
     frt = BoxFaces.at("front");
     bck = BoxFaces.at("back");
@@ -319,7 +319,7 @@ std::vector<Fake::Face> FakeObjectMaker::buildBoxFaces()
     rgt = BoxFaces.at("right");
 
     for(int i=1; i<=6; i++){
-        Fake::Face aFace = this->makeFakeFace();
+        Mock::Face aFace = this->makeMockFace();
         Faces.push_back(aFace);
     }
 
