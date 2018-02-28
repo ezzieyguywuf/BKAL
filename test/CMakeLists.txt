@@ -11,7 +11,7 @@ endfunction(AddTest)
 
 AddTest(FakeEdgeTester "FakeEdge")
 AddTest(FakeFaceTester "FakeFace")
-AddTest(FakeSolidMakerTester "FakeSolidMaker" "FakeEdge")
+AddTest(FakeSolidMakerTester "FakeSolidMaker")
 
-add_executable(SimpleCase SimpleCase.cpp)
-target_link_libraries(SimpleCase "FakeSolidMaker")
+#add_executable(SimpleCase SimpleCase.cpp)
+#target_link_libraries(SimpleCase "FakeSolidMaker")

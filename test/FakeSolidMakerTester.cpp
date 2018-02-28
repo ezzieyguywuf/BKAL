@@ -1,5 +1,6 @@
 #include <BKAL/ISolidMaker.h>
 #include <BKAL/IBox.h>
+#include <BKAL/ICylinder.h>
 #include <BKAL/IFace.h>
 #include <BKAL/Fake/SolidMaker.h>
 #include <BKAL/Types.h>
@@ -8,6 +9,7 @@
 
 using BKAL::pIFace;
 using BKAL::pIBox;
+using BKAL::pICylinder;
 using BKAL::pISolidMaker;
 using Fake::SolidMaker;
 
@@ -42,4 +44,18 @@ TEST_F(FakeSolidMakerTest, makeBox){
     EXPECT_EQ(box->bottom().getEdges().size(), 4);
 
     EXPECT_EQ(box->getFaces().size(), 6);
+}
+
+TEST_F(FakeSolidMakerTest, makeCylinder){
+    pICylinder cyl(myMaker->makeCylinder(1, 1));
+
+    EXPECT_TRUE(cyl->lateral().sharesEdge(cyl->top()));
+    EXPECT_TRUE(cyl->lateral().sharesEdge(cyl->bottom()));
+    EXPECT_FALSE(cyl->top().sharesEdge(cyl->bottom()));
+
+    EXPECT_EQ(cyl->lateral().getEdges().size(), 3);
+    EXPECT_EQ(cyl->top().getEdges().size(), 1);
+    EXPECT_EQ(cyl->bottom().getEdges().size(), 1);
+
+    EXPECT_EQ(cyl->getFaces().size(), 3);
 }

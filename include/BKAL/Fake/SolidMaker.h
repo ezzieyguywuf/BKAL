@@ -2,13 +2,13 @@
 #define FakeSolidMaker_H
 
 #include <BKAL/ISolidMaker.h>
-#include <BKAL/Types.h>
 
 namespace Fake{
     class SolidMaker : public ISolidMaker
     {
         public:
             pIBox makeBox(uint L, uint W, uint H) const override;
+            pICylinder makeCylinder(uint R, uint H) const override;
 
         private:
             // creates a unique value for each Face, Edge, etc.
