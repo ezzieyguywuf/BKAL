@@ -6,6 +6,6 @@ providing a single point of entry of large third-party libraries.
 At the time of this writing, the most prominent, easily available open-source BREP Kernel
 is he OpenCascade Library (OCC for short). As such, BKAL is written with OCC in mind.
 
-Please note that BKAL does nothing on its own. Indeed, many of the classes defined herein
+Please note that BKAL does nothing on its own. Indeed, all of the classes defined herein
 are "Pure Virtual", i.e. they can not be instantiated. Rather, a library must be written
-which implements he BKAL interfaces.
+which implements the BKAL interfaces.
