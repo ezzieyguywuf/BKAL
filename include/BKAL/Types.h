@@ -10,6 +10,8 @@
 class IEdge;
 class IFace;
 class ISolid;
+class ISolidMaker;
+class IBox;
 
 namespace BKAL{
     typedef std::unique_ptr<IEdge> pIEdge;
@@ -17,6 +19,8 @@ namespace BKAL{
     typedef std::unique_ptr<IFace> pIFace;
     typedef std::vector<pIFace> pIFaces;
     typedef std::unique_ptr<ISolid> pISolid;
+    typedef std::unique_ptr<ISolidMaker> pISolidMaker;
+    typedef std::unique_ptr<IBox> pIBox;
     typedef unsigned int uint;
     //typedef pISolids = std::vector<std::unique_ptr<ISolid>>;
 

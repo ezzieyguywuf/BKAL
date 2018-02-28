@@ -12,7 +12,7 @@ using BKAL::pIFaces;
 class ISolid
 {
     public:
-        inline ~ISolid(){};
+        virtual inline ~ISolid() = default;
         inline const IEdge& getEdge(unsigned int index) const;
         inline const IFace& getFace(unsigned int index) const;
         inline const pIFaces& getFaces() const;

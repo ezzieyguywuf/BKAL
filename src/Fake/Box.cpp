@@ -14,33 +14,42 @@ Box::Box(std::array<uint, 12> edges)
 {
 }
 
-const pIFace& Box::front() const
+const pIFaces& Box::getFaceVector() const 
 {
-    return this->myFaces[0];
+    return Fake::Solid::getFaceVector();
+}
+const pIEdges& Box::getEdgeVector() const
+{
+    return Fake::Solid::getEdgeVector();
 }
 
-const pIFace& Box::back() const
+const IFace& Box::front() const
 {
-    return this->myFaces[1];
+    return *(this->myFaces[0]);
 }
 
-const pIFace& Box::left() const
+const IFace& Box::back() const
 {
-    return this->myFaces[2];
+    return *(this->myFaces[1]);
 }
 
-const pIFace& Box::right() const
+const IFace& Box::left() const
 {
-    return this->myFaces[3];
+    return *(this->myFaces[2]);
 }
 
-const pIFace& Box::top() const
+const IFace& Box::right() const
 {
-    return this->myFaces[4];
+    return *(this->myFaces[3]);
+}
+
+const IFace& Box::top() const
+{
+    return *(this->myFaces[4]);
 }
 
 
-const pIFace& Box::bottom() const
+const IFace& Box::bottom() const
 {
-    return this->myFaces[5];
+    return *(this->myFaces[5]);
 }

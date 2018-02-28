@@ -15,7 +15,7 @@ using BKAL::pIEdge;
 using BKAL::pIEdges;
 
 namespace Fake{
-    class Solid : public ISolid
+    class Solid : virtual public ISolid
     {
         public:
             Solid(vector<Face> faces);
@@ -23,7 +23,7 @@ namespace Fake{
             Solid(Solid&& aSolid);
             Solid operator=(const Solid& aSolid);
             Solid operator=(Solid&& aSolid);
-            ~Solid(){};
+            virtual ~Solid() = default;
 
             const pIFaces& getFaceVector() const override;
             const pIEdges& getEdgeVector() const override;
