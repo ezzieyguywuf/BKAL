@@ -2,7 +2,7 @@
 #define BKAL_ISolidMaker
 
 #include <ISolid.h>
-#include <Types.h>
+#include <BKALTypes.h>
 
 using BKAL::pIBox;
 using BKAL::pICylinder;

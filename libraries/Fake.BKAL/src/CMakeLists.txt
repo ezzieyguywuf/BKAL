@@ -1,0 +1,12 @@
+add_library(FakeEdge FakeEdge.cpp)
+add_library(FakeFace FakeFace.cpp)
+add_library(FakeSolid FakeSolid.cpp)
+add_library(FakeBox FakeBox.cpp)
+add_library(FakeCylinder FakeCylinder.cpp)
+add_library(FakeSolidMaker FakeSolidMaker.cpp)
+
+target_link_libraries(FakeFace FakeEdge)
+target_link_libraries(FakeSolid FakeFace)
+target_link_libraries(FakeBox FakeSolid)
+target_link_libraries(FakeCylinder FakeSolid)
+target_link_libraries(FakeSolidMaker FakeBox FakeCylinder)

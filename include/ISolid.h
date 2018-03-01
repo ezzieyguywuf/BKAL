@@ -2,7 +2,7 @@
 #define ISolid_HEADER
 
 #include <IFace.h>
-#include <Types.h>
+#include <BKALTypes.h>
 
 #include <stdexcept>
 

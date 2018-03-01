@@ -3,7 +3,7 @@
 
 #include <ISolid.h>
 #include <IFace.h>
-#include <Types.h>
+#include <BKALTypes.h>
 
 namespace BKAL{
     class ICylinder : public ISolid
