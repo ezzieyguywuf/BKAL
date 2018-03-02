@@ -5,4 +5,7 @@ add_library(OccFace OccFace.cpp)
 target_link_libraries(OccFace ${OCC_LIBS} OccEdge)
 
 add_library(OccSolid OccSolid.cpp)
-target_link_libraries(OccSolid ${OCC_LIBS} OccEdge)
+target_link_libraries(OccSolid ${OCC_LIBS} OccFace)
+
+add_library(OccBox OccBox.cpp)
+target_link_libraries(OccBox ${OCC_LIBS} OccSolid)

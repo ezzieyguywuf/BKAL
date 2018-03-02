@@ -9,7 +9,7 @@
 
 using Occ::Solid;
 
-Solid::Solid(TopoDS_Solid aSolid)
+Solid::Solid(const TopoDS_Solid& aSolid)
     : mySolid(aSolid)
 {
     TopTools_IndexedMapOfShape edges;
