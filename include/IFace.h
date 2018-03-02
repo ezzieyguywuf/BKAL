@@ -53,7 +53,7 @@ namespace BKAL
     {
         for (const auto& myEdge : this->getEdges()){
             for (const auto& checkEdge : aFace.getEdges()){
-                if (*myEdge == *checkEdge){
+                if (myEdge->isFlipped(*checkEdge)){
                     return true;
                 }
             }
