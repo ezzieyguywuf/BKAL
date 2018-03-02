@@ -4,4 +4,4 @@ add_subdirectory(googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_subdirectory(Fake.BKAL)
-add_subdirectory(OCC.BKAL)
+add_subdirectory(Occ.BKAL)
