@@ -15,6 +15,7 @@ namespace BKAL{
             // Length = X, Width = Y, Height = Z
             virtual pIBox makeBox(uint L, uint W, uint H) const = 0;
             virtual pICylinder makeCylinder(uint R, uint H) const = 0;
+            virtual pISolid makeFusion(const pISolid& base, const pISolid& tool) const = 0;
     };
 }
 

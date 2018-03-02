@@ -6,6 +6,8 @@
 //#include "ISolid.h"
 #include <vector>
 #include <memory>
+#include <vector>
+#include <utility> // for std::pair
 
 namespace BKAL{
     class IEdge;
@@ -24,6 +26,8 @@ namespace BKAL{
     typedef std::unique_ptr<IBox> pIBox;
     typedef std::unique_ptr<ICylinder> pICylinder;
     typedef unsigned int uint;
+    typedef std::vector<uint> uints;
+    typedef std::vector<std::pair<uint, uint>> vecPair_uint;
     //typedef pISolids = std::vector<std::unique_ptr<ISolid>>;
 
 }

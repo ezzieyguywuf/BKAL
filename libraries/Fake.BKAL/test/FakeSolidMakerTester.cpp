@@ -63,3 +63,13 @@ TEST_F(FakeSolidMakerTest, makeCylinder){
 
     EXPECT_EQ(cyl->getFaces().size(), 3);
 }
+
+TEST_F(FakeSolidMakerTest, makeFusion){
+    // Are there other tests we should perform here?
+    pISolid box(myMaker->makeBox(1, 1, 1));
+    pISolid cyl(myMaker->makeCylinder(1, 1));
+    pISolid fused(myMaker->makeFusion(box, cyl));
+
+    EXPECT_EQ(fused->getFaces().size(), 7);
+    EXPECT_EQ(fused->getEdges().size(), 15);
+}
