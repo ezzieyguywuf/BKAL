@@ -17,22 +17,22 @@ Box::Box(BRepPrimAPI_MakeBox mkBox)
     pIFace bottom(new Face(mkBox.BottomFace()));
     int i = 0;
     for(const pIFace& aFace : this->getFaceVector()){
-        if(aFace == front){
+        if(*aFace == *front){
             myIndices["front"] = i;
         }
-        else if(aFace == back){
+        else if(*aFace == *back){
             myIndices["back"] = i;
         }
-        else if(aFace == left){
+        else if(*aFace == *left){
             myIndices["left"] = i;
         }
-        else if(aFace == right){
+        else if(*aFace == *right){
             myIndices["right"] = i;
         }
-        else if(aFace == top){
+        else if(*aFace == *top){
             myIndices["top"] = i;
         }
-        else if(aFace == bottom){
+        else if(*aFace == *bottom){
             myIndices["bottom"] = i;
         }
         i++;
@@ -51,31 +51,31 @@ const pIEdges& Box::getEdgeVector() const
 
 const IFace& Box::front() const
 {
-    *(this->getFaceVector()[myIndices.at("front")]);
+    return *(this->myFaces[myIndices.at("front")]);
 }
 
 const IFace& Box::back() const
 {
-    *(this->getFaceVector()[myIndices.at("back")]);
+    return *(this->myFaces[myIndices.at("back")]);
 }
 
 const IFace& Box::left() const
 {
-    *(this->getFaceVector()[myIndices.at("left")]);
+    return *(this->myFaces[myIndices.at("left")]);
 }
 
 const IFace& Box::right() const
 {
-    *(this->getFaceVector()[myIndices.at("right")]);
+    return *(this->myFaces[myIndices.at("right")]);
 }
 
 const IFace& Box::top() const
 {
-    *(this->getFaceVector()[myIndices.at("top")]);
+    return *(this->myFaces[myIndices.at("top")]);
 }
 
 
 const IFace& Box::bottom() const
 {
-    *(this->getFaceVector()[myIndices.at("bottom")]);
+    return *(this->myFaces[myIndices.at("bottom")]);
 }

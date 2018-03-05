@@ -11,7 +11,7 @@ namespace Occ{
 class Face : public BKAL::IFace_<Face>
     {
         public:
-            Face(TopoDS_Face aFace);
+            Face(const TopoDS_Face& aFace);
             bool operator==(const Face& aFace) const override;
             bool isFlipped(const Face& aFace) const override;
             const pIEdges& getEdgeVector() const override;

@@ -17,7 +17,7 @@ class Solid : public BKAL::ISolid
             const pIFaces& getFaceVector() const override;
             const TopoDS_Solid& getSolid() const;
 
-        private:
+        protected:
             TopoDS_Solid mySolid;
             pIEdges myEdges;
             pIFaces myFaces;

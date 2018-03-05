@@ -16,13 +16,13 @@ Cylinder::Cylinder(BRepPrimAPI_MakeCylinder mkCylinder)
     pIFace bottom(new Face(cyl.BottomFace()));
     int i = 0;
     for(const pIFace& aFace : this->getFaceVector()){
-        if(aFace == lateral){
+        if(*aFace == *lateral){
             myIndices["lateral"] = i;
         }
-        else if(aFace == top){
+        else if(*aFace == *top){
             myIndices["top"] = i;
         }
-        else if(aFace == bottom){
+        else if(*aFace == *bottom){
             myIndices["bottom"] = i;
         }
         i++;
@@ -41,16 +41,16 @@ const pIEdges& Cylinder::getEdgeVector() const
 
 const IFace& Cylinder::lateral() const
 {
-    *(this->getFaceVector()[myIndices.at("lateral")]);
+    return *(this->getFaceVector()[myIndices.at("lateral")]);
 }
 
 const IFace& Cylinder::top() const
 {
-    *(this->getFaceVector()[myIndices.at("top")]);
+    return *(this->getFaceVector()[myIndices.at("top")]);
 }
 
 
 const IFace& Cylinder::bottom() const
 {
-    *(this->getFaceVector()[myIndices.at("bottom")]);
+    return *(this->getFaceVector()[myIndices.at("bottom")]);
 }

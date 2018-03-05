@@ -6,14 +6,16 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 
+#include <iostream>
+
 using Occ::Face;
 
-Face::Face(TopoDS_Face aFace)
+Face::Face(const TopoDS_Face& aFace)
     : myFace(aFace)
 {
     TopTools_IndexedMapOfShape edges;
     TopExp::MapShapes(myFace, TopAbs_EDGE, edges);
-    for (int i=1; i < edges.Extent() ; i++)
+    for (int i=1; i <= edges.Extent() ; i++)
     {
         TopoDS_Edge anEdge = TopoDS::Edge(edges.FindKey(i));
         myEdges.push_back(std::move(pIEdge(new Occ::Edge(anEdge))));
