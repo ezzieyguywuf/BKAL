@@ -6,7 +6,7 @@
 #include <BKALTypes.h>
 
 namespace BKAL{
-    class IBox : public ISolid
+    class IBox : virtual public ISolid
     {
         public:
             virtual inline ~IBox() = default;

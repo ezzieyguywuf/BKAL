@@ -23,8 +23,8 @@ pICylinder SolidMaker::makeCylinder(uint R, uint H) const
 
 pISolid SolidMaker::makeFusion(const pISolid& base, const pISolid& tool) const 
 {
-    const Occ::Solid& occBase = static_cast<const Occ::Solid&>(*base);
-    const Occ::Solid& occTool = static_cast<const Occ::Solid&>(*tool);
+    const Occ::Solid& occBase = dynamic_cast<const Occ::Solid&>(*base);
+    const Occ::Solid& occTool = dynamic_cast<const Occ::Solid&>(*tool);
     BRepAlgoAPI_Fuse mkFuse(occBase.getSolid(), occTool.getSolid());
     mkFuse.Build();
     return pISolid(new Occ::Solid(TopoDS::Solid(mkFuse.Shape())));

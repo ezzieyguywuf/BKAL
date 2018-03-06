@@ -6,7 +6,7 @@
 #include <BKALTypes.h>
 
 namespace BKAL{
-    class ICylinder : public ISolid
+    class ICylinder : virtual public ISolid
     {
         public:
             virtual inline ~ICylinder() = default;

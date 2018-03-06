@@ -20,12 +20,8 @@ int main(void)
     TopoDS_Solid myBox(TopoDS::Solid(mkBox.Shape()));
     Occ::Box occBox(mkBox);
 
-    const IFace& front = occBox.front();
-    const IFace& top = occBox.top();
-
-    const Occ::Face& occFront = static_cast<const Occ::Face&>(front);
-    const Occ::Face& occTop = static_cast<const Occ::Face&>(top);
-
-    front.sharesEdge(top);
+    std::cout << std::boolalpha;
+    std::cout << "front.sharesEdge(top) = " << occBox.front().sharesEdge(occBox.top()) << std::endl;
+    std::cout << "front.sharesEdge(back) = " << occBox.front().sharesEdge(occBox.back()) << std::endl;
     return 0;
 }
