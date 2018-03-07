@@ -11,7 +11,7 @@ using BKAL::uint;
 
 unsigned int SolidMaker::EDGE_COUNT;
 
-pIBox SolidMaker::makeBox(uint L, uint W, uint H) const
+pIBox SolidMaker::makeBox(double L, double W, double H) const
 {
     // suppress "unused parameter" warning
     (void) L;
@@ -25,7 +25,7 @@ pIBox SolidMaker::makeBox(uint L, uint W, uint H) const
     return pIBox(new Fake::Box(edges));
 }
 
-pICylinder SolidMaker::makeCylinder(uint R, uint H) const
+pICylinder SolidMaker::makeCylinder(double R, double H) const
 {
     // suppress "unused parameter" warning
     (void) R;

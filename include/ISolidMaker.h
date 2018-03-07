@@ -13,8 +13,8 @@ namespace BKAL{
         public:
             virtual ~ISolidMaker() = default;
             // Length = X, Width = Y, Height = Z
-            virtual pIBox makeBox(uint L, uint W, uint H) const = 0;
-            virtual pICylinder makeCylinder(uint R, uint H) const = 0;
+            virtual pIBox makeBox(double L, double W, double H) const = 0;
+            virtual pICylinder makeCylinder(double R, double H) const = 0;
             inline pISolid makeFusion(const pISolid& base, const pISolid& tool) const;
 
         private:
