@@ -17,7 +17,7 @@ using BKAL::ISolid;
 using BKAL::IFace;
 
 namespace Fake{
-    class Solid : virtual public ISolid
+    class Solid : public virtual ISolid
     {
         public:
             Solid(vector<Face> faces);
@@ -32,6 +32,9 @@ namespace Fake{
 
             const pIFace& getFace(int which) const;
 
+        protected:
+            pIFaces myFaces;
+
         private:
             bool checkEdge(const pIEdge& anEdge) const;
             void addEdges(const pIEdges& edges);
@@ -39,8 +42,6 @@ namespace Fake{
             pIEdges myEdges;
             vector<unsigned int> myEdgeVals;
 
-        protected:
-            pIFaces myFaces;
     };
 }
 

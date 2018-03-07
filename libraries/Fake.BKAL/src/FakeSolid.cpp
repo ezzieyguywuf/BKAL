@@ -73,14 +73,8 @@ const pIFace& Solid::getFace(int which) const{
 
 bool Solid::checkEdge(const pIEdge& anEdge) const
 {
-    const Fake::Edge* tmpEdge = static_cast<const Fake::Edge*>(anEdge.get());
-    int val = tmpEdge->getValue(), val2;
-    int val3 = (*tmpEdge).getValue();
     for (const auto& edge : myEdges)
     {
-        const Fake::Edge* tmpMyEdge = static_cast<const Fake::Edge*>(edge.get());
-        val2 = tmpMyEdge->getValue();
-
         if (*edge == *anEdge)
         {
             return true;

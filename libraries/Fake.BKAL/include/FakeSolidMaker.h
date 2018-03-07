@@ -4,16 +4,15 @@
 #include <ISolidMaker.h>
 #include <FakeSolid.h>
 
-using BKAL::ISolidMaker;
 using BKAL::pISolid;
 
 namespace Fake{
-    class SolidMaker : public ISolidMaker
+    class SolidMaker : public BKAL::ISolidMaker_<Solid>
     {
         public:
             pIBox makeBox(uint L, uint W, uint H) const override;
             pICylinder makeCylinder(uint R, uint H) const override;
-            pISolid makeFusion(const pISolid& base, const pISolid& tool) const override;
+            pISolid makeFusion(const Solid& base, const Solid& tool) const override;
 
             pISolid fuseBoxAndCylinderFlush() const;
 

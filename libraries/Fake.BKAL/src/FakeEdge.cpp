@@ -19,6 +19,7 @@ Edge::Edge(Edge&& anEdge)
 Edge Edge::operator=(const Edge& anEdge)
 {
     val = anEdge.val;
+    return *this;
 }
 
 Edge Edge::operator=(Edge&& anEdge)

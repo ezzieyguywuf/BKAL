@@ -6,12 +6,17 @@
 #include <array>
 
 using Fake::SolidMaker;
+using Fake::Solid;
 using BKAL::uint;
 
 unsigned int SolidMaker::EDGE_COUNT;
 
 pIBox SolidMaker::makeBox(uint L, uint W, uint H) const
 {
+    // suppress "unused parameter" warning
+    (void) L;
+    (void) W;
+    (void) H;
     std::array<uint, 12> edges;
     for (int i = 0; i <=11; i++)
     {
@@ -22,6 +27,9 @@ pIBox SolidMaker::makeBox(uint L, uint W, uint H) const
 
 pICylinder SolidMaker::makeCylinder(uint R, uint H) const
 {
+    // suppress "unused parameter" warning
+    (void) R;
+    (void) H;
     std::array<uint, 3> edges;
     for (int i = 0; i <=2; i++)
     {
@@ -30,8 +38,11 @@ pICylinder SolidMaker::makeCylinder(uint R, uint H) const
     return pICylinder(new Fake::Cylinder(edges));
 }
 
-pISolid SolidMaker::makeFusion(const pISolid& base, const pISolid& tool) const
+pISolid SolidMaker::makeFusion(const Solid& base, const Solid& tool) const
 {
+    // suppress "unused parameter" warning
+    (void) base;
+    (void) tool;
     return this->fuseBoxAndCylinderFlush();
 }
 
