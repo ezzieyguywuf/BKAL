@@ -65,11 +65,14 @@ TEST_F(OccSolidMakerTest, makeCylinder){
 }
 
 TEST_F(OccSolidMakerTest, makeFusion){
-    // Are there other tests we should perform here?
-    //pISolid box(myMaker->makeBox(1, 1, 1));
-    //pISolid cyl(myMaker->makeCylinder(1, 1));
-    //pISolid fused(myMaker->makeFusion(box, cyl));
+    //Are there other tests we should perform here?
+    pISolid box(myMaker->makeBox(1, 1, 1));
+    pISolid cyl(myMaker->makeCylinder(0.25, 1));
+    pISolid fused(myMaker->makeFusion(box, cyl));
 
-    //EXPECT_EQ(fused->getFaces().size(), 7);
-    //EXPECT_EQ(fused->getEdges().size(), 15);
+    // Note: really, I'd expect 7 faces and 15 edges, however due to the way
+    // OpenCascade works, we actually get an invalid solid when the cylinder and box are
+    // the same height.
+    EXPECT_EQ(fused->getFaces().size(), 11);
+    EXPECT_EQ(fused->getEdges().size(), 21);
 }

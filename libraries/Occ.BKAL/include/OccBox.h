@@ -15,7 +15,7 @@ using BKAL::IFace;
 using BKAL::IBox;
 
 namespace Occ{
-    class Box : virtual public Solid , public IBox
+    class Box : public virtual Solid , public IBox
     {
         public:
             Box(BRepPrimAPI_MakeBox mkBox);

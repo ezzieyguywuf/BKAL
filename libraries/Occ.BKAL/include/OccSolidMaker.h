@@ -4,16 +4,15 @@
 #include <ISolidMaker.h>
 #include <OccSolid.h>
 
-using BKAL::ISolidMaker;
 using BKAL::pISolid;
 
 namespace Occ{
-    class SolidMaker : public ISolidMaker
+    class SolidMaker : public BKAL::ISolidMaker_<Solid>
     {
         public:
-            pIBox makeBox(uint L, uint W, uint H) const override;
-            pICylinder makeCylinder(uint R, uint H) const override;
-            pISolid makeFusion(const pISolid& base, const pISolid& tool) const override;
+            pIBox makeBox(double L, double W, double H) const override;
+            pICylinder makeCylinder(double R, double H) const override;
+            pISolid makeFusion(const Solid& base, const Solid& tool) const;
     };
 }
 

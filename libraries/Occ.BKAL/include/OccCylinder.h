@@ -15,7 +15,7 @@ using BKAL::IFace;
 using BKAL::ICylinder;
 
 namespace Occ{
-    class Cylinder : virtual public Solid, public ICylinder
+    class Cylinder : public virtual Solid, public ICylinder
     {
         public:
             Cylinder(BRepPrimAPI_MakeCylinder mkCylinder);
